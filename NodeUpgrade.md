@@ -9,14 +9,15 @@ sudo systemctl stop story
 
 ```
 cd $HOME
-wget https://story-geth-binaries.s3.us-west-1.amazonaws.com/story-public/story-linux-amd64-0.10.1-57567e5.tar.gz
-tar -xzvf story-linux-amd64-0.10.1-57567e5.tar.gz
+wget https://github.com/piplabs/story/releases/download/v0.12.0/story-linux-amd64
+
 ```
 
 ### Copy binary to $HOME/go/bin
 
 ```
-cp $HOME/story-linux-amd64-0.10.1-57567e5/story $HOME/go/bin
+chmod +x story-linux-amd64
+sudo cp $HOME/story-linux-amd64 $(which story)
 source $HOME/.bash_profile
 story version
 ```
@@ -28,55 +29,9 @@ sudo systemctl start story
 sudo systemctl status story
 ```
 
-# Snapshot
+### Check Logs
 
-## Credits to Joseph Tran
-### Install tool
 ```
-sudo apt-get install wget lz4 aria2 pv -y
+sudo journalctl -u story -f -o cat
 ```
-### Stop node
-```
-sudo systemctl stop story
-sudo systemctl stop story-geth
-```
-### Download Story-data
-```
-cd $HOME
-rm -f Story_snapshot.lz4
-wget --show-progress https://josephtran.co/story/Story_snapshot.lz4
-```
-### Download Geth-data
-```
-cd $HOME
-rm -f Geth_snapshot.lz4
-wget --show-progress https://josephtran.co/story/Geth_snapshot.lz4
-```
-### Backup priv_validator_state.json:
-```
-mv ~/.story/story/data/priv_validator_state.json ~/.story/priv_validator_state.json.backup
-```
-### Remove old data
-```
-rm -rf ~/.story/story/data
-rm -rf ~/.story/geth/iliad/geth/chaindata
-```
-### Extract Story-data
-```
-sudo mkdir -p /root/.story/story/data
-lz4 -d Story_snapshot.lz4 | pv | sudo tar xv -C /root/.story/story/
-```
-### Extract Geth-data
-```
-sudo mkdir -p /root/.story/geth/iliad/geth/chaindata
-lz4 -d Geth_snapshot.lz4 | pv | sudo tar xv -C /root/.story/geth/iliad/geth/
-```
-### Move priv_validator_state.json back
-```
-mv ~/.story/priv_validator_state.json.backup ~/.story/story/data/priv_validator_state.json
-```
-### Restart node
-```
-sudo systemctl start story
-sudo systemctl start story-geth
-```
+
