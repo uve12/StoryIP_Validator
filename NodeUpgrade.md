@@ -1,5 +1,4 @@
-## Updatev1 @ Block #626575
-
+## Update Node
 ### Stop node
 ```
 sudo systemctl stop story
