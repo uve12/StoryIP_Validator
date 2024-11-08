@@ -147,57 +147,9 @@ curl localhost:26657/status | jq
 
 # SYNC using snapshot File
 
-## Credits to Joseph Tran
+**Credits to Joseph Tran**
 
-### Install tool
-```
-sudo apt-get install wget lz4 aria2 pv -y
-```
-### Stop node
-```
-sudo systemctl stop story
-sudo systemctl stop story-geth
-```
-### Download Story-data
-```
-cd $HOME
-rm -f Story_snapshot.lz4
-wget --show-progress https://josephtran.co/story/Story_snapshot.lz4
-```
-### Download Geth-data
-```
-cd $HOME
-rm -f Geth_snapshot.lz4
-wget --show-progress https://josephtran.co/story/Geth_snapshot.lz4
-```
-### Backup priv_validator_state.json:
-```
-mv ~/.story/story/data/priv_validator_state.json ~/.story/priv_validator_state.json.backup
-```
-### Remove old data
-```
-rm -rf ~/.story/story/data
-rm -rf ~/.story/geth/iliad/geth/chaindata
-```
-### Extract Story-data
-```
-sudo mkdir -p /root/.story/story/data
-lz4 -d Story_snapshot.lz4 | pv | sudo tar xv -C /root/.story/story/
-```
-### Extract Geth-data
-```
-sudo mkdir -p /root/.story/geth/iliad/geth/chaindata
-lz4 -d Geth_snapshot.lz4 | pv | sudo tar xv -C /root/.story/geth/iliad/geth/
-```
-### Move priv_validator_state.json back
-```
-mv ~/.story/priv_validator_state.json.backup ~/.story/story/data/priv_validator_state.json
-```
-### Restart node
-```
-sudo systemctl start story
-sudo systemctl start story-geth
-```
+Snapshot : https://service.josephtran.xyz/testnet/story/snapshot/
 
 
 # Register your Validator
