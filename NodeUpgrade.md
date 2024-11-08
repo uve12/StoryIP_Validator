@@ -39,4 +39,5 @@ Credits to JosephTran
 ---
 
 **Snapshot** : https://service.josephtran.xyz/testnet/story/snapshot/
+
 **Dashboard** : https://service.josephtran.xyz/testnet/story/tools/story-dashboard/
