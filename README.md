@@ -78,13 +78,8 @@ story-geth version
 ## Download Story binary
 
 ```
-wget https://story-geth-binaries.s3.us-west-1.amazonaws.com/story-public/story-linux-amd64-0.9.11-2a25df1.tar.gz
-tar -xzvf story-linux-amd64-0.9.11-2a25df1.tar.gz
-[ ! -d "$HOME/go/bin" ] && mkdir -p $HOME/go/bin
-if ! grep -q "$HOME/go/bin" $HOME/.bash_profile; then
-  echo 'export PATH=$PATH:$HOME/go/bin' >> $HOME/.bash_profile
-fi
-sudo cp story-linux-amd64-0.9.11-2a25df1/story $HOME/go/bin/story
+cd $HOME
+wget https://github.com/piplabs/story/releases/download/v0.12.1/story-linux-amd64
 source $HOME/.bash_profile
 story version
 ```
