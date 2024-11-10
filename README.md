@@ -64,13 +64,14 @@ go version
 ## Download Story-Geth binary
 
 ```
-wget https://story-geth-binaries.s3.us-west-1.amazonaws.com/geth-public/geth-linux-amd64-0.9.2-ea9f0d2.tar.gz
-tar -xzvf geth-linux-amd64-0.9.2-ea9f0d2.tar.gz
+cd $HOME
+wget https://github.com/piplabs/story-geth/releases/download/v0.10.0/geth-linux-amd64
 [ ! -d "$HOME/go/bin" ] && mkdir -p $HOME/go/bin
 if ! grep -q "$HOME/go/bin" $HOME/.bash_profile; then
-  echo 'export PATH=$PATH:$HOME/go/bin' >> $HOME/.bash_profile
+  echo "export PATH=$PATH:/usr/local/go/bin:~/go/bin" >> ~/.bash_profile
 fi
-sudo cp geth-linux-amd64-0.9.2-ea9f0d2/geth $HOME/go/bin/story-geth
+chmod +x geth-linux-amd64
+mv $HOME/geth-linux-amd64 $HOME/go/bin/story-geth
 source $HOME/.bash_profile
 story-geth version
 ```
@@ -79,7 +80,14 @@ story-geth version
 
 ```
 cd $HOME
-wget https://github.com/piplabs/story/releases/download/v0.12.1/story-linux-amd64
+rm -rf story-linux-amd64
+wget https://github.com/piplabs/story/releases/download/v0.12.0/story-linux-amd64
+[ ! -d "$HOME/go/bin" ] && mkdir -p $HOME/go/bin
+if ! grep -q "$HOME/go/bin" $HOME/.bash_profile; then
+  echo "export PATH=$PATH:/usr/local/go/bin:~/go/bin" >> ~/.bash_profile
+fi
+chmod +x story-linux-amd64
+sudo cp $HOME/story-linux-amd64 $HOME/go/bin/story
 source $HOME/.bash_profile
 story version
 ```
@@ -87,10 +95,10 @@ story version
 ## Initiate Iliad node
 
 Replace "Your_moniker_name" with any name you want 
-(Ex: story init --network iliad --moniker cryptoconsole)
+(Ex: story init --network odyssey --moniker cryptoconsole)
 
 ```
-story init --network iliad --moniker "Your_moniker_name"
+story init --network odyssey --moniker "Your_moniker_name"
 ```
 ### Peers setup
 ```
@@ -107,7 +115,7 @@ After=network.target
 
 [Service]
 User=root
-ExecStart=/root/go/bin/story-geth --iliad --syncmode full
+ExecStart=/root/go/bin/story-geth --odyssey --syncmode full
 Restart=on-failure
 RestartSec=3
 LimitNOFILE=4096
